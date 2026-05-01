@@ -54,6 +54,5 @@ If you have downloaded the packaged `.exe` file from the `dist/` folder, **no in
 
 | Sample Image | Scenario Description | Optimal Parameters |
 | :--- | :--- | :--- |
-| `[Insert Image Here]` | **High-Density Urban / Buildings**<br>Lots of short, distinct line segments. High noise potential from complex rooftops. | **Gauss Size:** `5` / **Sigma:** `1.5`<br>**Grad Thresh:** `80` (Strict)<br>**Max Peaks:** `50`<br>**Peak Ratio:** `0.30` |
-| `[Insert Image Here]` | **Faint Agricultural Boundaries**<br>Low contrast, blurry edges separating soil and crops. Heavy vegetation texture. | **Gauss Size:** `9` / **Sigma:** `3.0`<br>**Grad Thresh:** `30` (Lenient)<br>**Max Peaks:** `150`<br>**Peak Ratio:** `0.12` |
-| `[Insert Image Here]` | **Long Highway Networks**<br>Distinct, long, unbroken lines spanning the entire image frame. | **Theta Res:** `0.5°`<br>**Grad Thresh:** `60`<br>**Max Gap:** `50`<br>**Min Length:** `100` |
+| <img src="imgs/hough_result_img.jpeg" width="200"> | **Gauss Size:** `5` / **Sigma:** `1.5`<br>**Grad Thresh:** `80` (Strict)<br>**Max Peaks:** `50`<br>**Peak Ratio:** `0.30` |
+
