@@ -1,50 +1,3 @@
-# Hough Transform Suite — Satellite Optimized
-
-A Python-based, interactive GUI application for detecting linear features (like roads) in high-resolution satellite imagery. This project implements the standard Hough Transform from scratch using pure NumPy arrays, avoiding built-in OpenCV detection functions to remain rule-compliant for academic/technical constraints.
-
-It includes implementations for both the Slope-Intercept (`m-b`) and Polar (`ρ-θ`) parameter spaces, along with custom logic to draw **finite line segments** rather than infinite lines across the image boundaries.
-
----
-
-## 📸 Visual Showcase
-
-*(Replace the placeholder paths below with the actual paths to your screenshots)*
-
-![Hough Transform GUI - Main Interface](docs/images/gui_main_placeholder.png)
-*The main CustomTkinter interface with adjustable parameters for pre-processing, Hough spaces, and finite line rendering.*
-
-**Test Cases:**
-
-| Complex Satellite Imagery | Standard Edge Detection |
-| :---: | :---: |
-| ![Satellite Test](docs/images/test_satellite_placeholder.png) | ![Simple Test](docs/images/test_simple_placeholder.png) |
-| *Aggressive NMS and auto-suggested parameters picking up fragmented colony roads.* | *Clean detection of distinct linear features on standard test images.* |
-
----
-
-## 🚀 How to Run
-
-There are two ways to run this application. If you just want to use the tool without messing with Python environments, use the executable.
-
-### Method 1: Standalone Executable (Recommended)
-You do not need to install Python or any dependencies to use this method. 
-
-1. Open the main project folder.
-2. Locate and double-click the **`satellite_hough_gui_v6.exe`** file.
-3. The GUI will launch automatically.
-
-### Method 2: Running from Source (Python Virtual Environment)
-If the executable doesn't work, or if you want to modify the code, you can run the raw Python script.
-
-1. **Activate your virtual environment:**
-   * **Windows (PowerShell):** `.\env311\Scripts\Activate.ps1`
-   * **Linux/Mac:** `source env311/bin/activate`
-2. **Install dependencies** (if not already installed):
-   ```bash
-   pip install numpy opencv-python matplotlib customtkinter
-
-
-
 Code Explanation & PipelineThe pipeline is structured into primitive mathematical operations to ensure full control over the arrays and accumulators.
 
 1. Preprocessing & Gradients (Sections 0–2)Custom Convolution: A pure NumPy convolve2d function is used alongside a custom-generated Gaussian kernel to smooth out image noise.Sobel Operators: Horizontal and vertical gradients ($G_x$, $G_y$) are computed manually to find edge magnitudes.Thresholding: Converts the continuous gradient magnitudes into a strict binary edge map.
@@ -58,3 +11,48 @@ Code Explanation & PipelineThe pipeline is structured into primitive mathematica
 5. Texture-Aware Auto-Suggest (Section 5)A smart parameter initialization feature. By calculating the local variance of the grayscale image, the system guesses if the uploaded image is a highly textured satellite shot (where variance is huge due to buildings, trees, and roads) or a simple, clean test image.If satellite imagery is detected, it automatically cranks up the blur, increases the allowable peaks (up to 150), and lowers the threshold ratio to pick up weaker, tiny colony roads.
 
 6. Graphical Interface (Section 7)Built entirely in CustomTkinter and matplotlib backend integrations, providing an intuitive dark-mode interface to adjust parameters dynamically, render accumulator heatmaps, and visualize the final superimposed segments.
+
+# 🛰️ Satellite Image Analysis: Hough Transform Suite
+
+This repository contains a standalone desktop application for extracting linear structural features (like road networks and building footprints) from satellite imagery. It is a pure-NumPy implementation of the Hough Transform, calculating and visualizing both slope-intercept ($m-b$) and polar ($\rho-\theta$) parameter spaces.
+
+## 🛠️ Dependencies & Installation
+
+If you are running the application from the Python source code, ensure you have Python 3.11 or 3.12 installed. Install the required dependencies using `pip`:
+
+`pip install opencv-python numpy matplotlib`
+
+*(Note: `tkinter` is used for the GUI and is included in the standard Python library).*
+
+### Launching the Executable (`.exe`)
+If you have downloaded the packaged `.exe` file from the `dist/` folder, **no installation or Python environment is required.**
+1. Navigate to the folder containing the `.exe` file.
+2. Double-click the file to launch the application. 
+3. *Note: A terminal window will not appear, and the GUI may take 3-5 seconds to initialize on the first launch.*
+
+## 🚀 How to Use
+1. Click **📁 Upload Image** and select an image.
+2. *(Optional but recommended)* Click **✨ Auto-Suggest Params**. The app analyzes the image's variance to determine if it is a highly-textured satellite image and adjusts parameters automatically.
+3. Click **▶ Run Pipeline**.
+4. Use the tabs to inspect the gradient magnitude, binary edges, accumulator heatmaps, and the final isolated overlay lines.
+
+## 📖 Parameter Guidelines
+* **Gauss Size & Sigma:** Controls initial smoothing. Increase these for noisy images to prevent the edge detector from picking up useless texture.
+* **Gradient Thresh:** The cutoff for the Sobel edge map. Decrease this to capture faint, low-contrast dirt roads.
+* **Slope Bins / Intercept Bins (m-b):** Defines the resolution of the $m-b$ accumulator array.
+* **Theta Res / Rho Res ($\rho-\theta$):** Defines the resolution of the polar accumulator. Lower Theta (e.g., `0.5°`) yields finer angular sensitivity.
+* **Max Peaks:** The absolute maximum number of lines the algorithm is allowed to draw.
+* **Peak Thresh Ratio:** The relative strength required to be considered a valid line (e.g., `0.15` means a line must have 15% of the votes of the absolute strongest line in the image).
+* **Max Line Gap / Min Length:** Used when projecting infinite Hough lines back onto finite image segments. Connects broken line segments if they are close, and drops them if they are too short.
+
+---
+
+## 📸 Reference Template: Tested Configurations
+
+*Use this reference chart to find optimal starting parameters based on the type of satellite imagery you are analyzing.*
+
+| Sample Image | Scenario Description | Optimal Parameters |
+| :--- | :--- | :--- |
+| `[Insert Image Here]` | **High-Density Urban / Buildings**<br>Lots of short, distinct line segments. High noise potential from complex rooftops. | **Gauss Size:** `5` / **Sigma:** `1.5`<br>**Grad Thresh:** `80` (Strict)<br>**Max Peaks:** `50`<br>**Peak Ratio:** `0.30` |
+| `[Insert Image Here]` | **Faint Agricultural Boundaries**<br>Low contrast, blurry edges separating soil and crops. Heavy vegetation texture. | **Gauss Size:** `9` / **Sigma:** `3.0`<br>**Grad Thresh:** `30` (Lenient)<br>**Max Peaks:** `150`<br>**Peak Ratio:** `0.12` |
+| `[Insert Image Here]` | **Long Highway Networks**<br>Distinct, long, unbroken lines spanning the entire image frame. | **Theta Res:** `0.5°`<br>**Grad Thresh:** `60`<br>**Max Gap:** `50`<br>**Min Length:** `100` |
