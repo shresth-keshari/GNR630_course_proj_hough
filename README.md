@@ -54,5 +54,5 @@ If you have downloaded the packaged `.exe` file from the `dist/` folder, **no in
 
 | Sample Image | Optimal Parameters |
 | :--- | :--- |
-| <img src="imgs/hough_result_img.jpeg" width="1000"> | **Gauss Size:** `11` / **Sigma:** `3.0`<br>**Grad Thresh:** `85` (Strict)<br>**Max Peaks:** `5`<br>**Peak Ratio:** `0.85` |
+| <img src="imgs/hough_result_img.jpeg" width="1000"> | **Gauss Size:** `11`<br>**Sigma:** `3.0`<br>**Grad Thresh:** `85` (Strict)<br>**Max Peaks:** `5`<br>**Peak Ratio:** `0.85` <br>**Max Line Gap:** `30` <br>**Min Length:** `40`|
 
