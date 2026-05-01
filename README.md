@@ -1,4 +1,5 @@
-Code Explanation & PipelineThe pipeline is structured into primitive mathematical operations to ensure full control over the arrays and accumulators.
+Code Explanation & Pipeline
+The pipeline is structured into primitive mathematical operations to ensure full control over the arrays and accumulators.
 
 1. Preprocessing & Gradients (Sections 0–2)Custom Convolution: A pure NumPy convolve2d function is used alongside a custom-generated Gaussian kernel to smooth out image noise.Sobel Operators: Horizontal and vertical gradients ($G_x$, $G_y$) are computed manually to find edge magnitudes.Thresholding: Converts the continuous gradient magnitudes into a strict binary edge map.
 
