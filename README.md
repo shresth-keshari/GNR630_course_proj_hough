@@ -52,7 +52,7 @@ If you have downloaded the packaged `.exe` file from the `dist/` folder, **no in
 
 *Use this reference chart to find optimal starting parameters based on the type of satellite imagery you are analyzing.*
 
-| Sample Image | Scenario Description | Optimal Parameters |
-| :--- | :--- | :--- |
-| <img src="imgs/hough_result_img.jpeg" width="200"> | **Gauss Size:** `5` / **Sigma:** `1.5`<br>**Grad Thresh:** `80` (Strict)<br>**Max Peaks:** `50`<br>**Peak Ratio:** `0.30` |
+| Sample Image | Optimal Parameters |
+| :--- | :--- |
+| <img src="imgs/hough_result_img.jpeg" width="1000"> | **Gauss Size:** `11` / **Sigma:** `3.0`<br>**Grad Thresh:** `85` (Strict)<br>**Max Peaks:** `5`<br>**Peak Ratio:** `0.85` |
 
