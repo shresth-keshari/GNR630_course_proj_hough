@@ -1,3 +1,5 @@
+## Project submission for GNR630 by: Shresth Keshari(23b2243) and K.HimaVarsha (23b2226)
+
 Code Explanation & Pipeline
 - The pipeline is structured into primitive mathematical operations to ensure full control over the arrays and accumulators.
 
